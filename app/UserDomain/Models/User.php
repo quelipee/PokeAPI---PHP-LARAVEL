@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Models;
+namespace App\UserDomain\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\TrainerDomain\Models\Trainer;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -18,7 +19,6 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
         'email',
         'password',
     ];
@@ -41,4 +41,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = bcrypt($value);
+    }
+    public function trainer()
+    {
+        return $this->hasOne(Trainer::class,'user_id');
+    }
 }

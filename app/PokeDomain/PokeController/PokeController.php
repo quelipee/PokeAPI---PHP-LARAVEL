@@ -17,7 +17,7 @@ class PokeController extends Controller
     {
         $array_poke = $this->pokeService->index();
 
-        return response()->view('welcome',['pokemons' => PokeResource::collection($array_poke)])
+        return response()->view('auth/index',['pokemons' => PokeResource::collection($array_poke)])
             ->setStatusCode(Response::HTTP_CREATED);
     }
 }

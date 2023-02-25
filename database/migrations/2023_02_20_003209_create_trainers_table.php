@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('region');
             $table->integer('age');
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }

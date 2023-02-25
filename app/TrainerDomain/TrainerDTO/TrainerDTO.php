@@ -20,7 +20,7 @@ class TrainerDTO
             id: $request->validated('id'),
             name: $request->validated('name'),
             region: $request->validated('region'),
-            age: $request->validated('age')
+            age: $request->validated('age'),
         );
     }
 }

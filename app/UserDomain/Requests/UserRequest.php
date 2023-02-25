@@ -1,10 +1,10 @@
 <?php
 
-namespace App\TrainerDomain\Request;
+namespace App\UserDomain\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TrainerRequestValidantion extends FormRequest
+class UserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -19,13 +19,14 @@ class TrainerRequestValidantion extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
      */
-    public function rules():array
+    public function rules(): array
     {
         return [
-            'id' => 'required',
-            'name' => 'required|string|max:100',
-            'region' => 'required|string|max:100',
-            'age' => 'required|integer|max_digits:3'
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+            'region' => 'required',
+            'age' => 'required'
         ];
     }
 }

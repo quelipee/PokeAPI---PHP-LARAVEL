@@ -10,39 +10,27 @@ use App\TrainerDomain\TrainerDTO\TrainerDTO;
 use App\TrainerDomain\TrainerService\TrainerService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class TrainerController extends Controller
 {
     public function __construct(protected TrainerService $trainerService)
     {}
-    public function store_trainer(TrainerRequestValidantion $request)
+    public function trainer_get_pokemon($id)
     {
-        $trainer = $this->trainerService->create_trainer(
-            TrainerDTO::fromRequestValidated($request)
-        );
-
-        return TrainerResource::make($trainer);
-    }
-
-    public function trainer_get_pokemon(TrainerRequestValidantion $request, $id)
-    {
-        $trainerStatus = $this->trainerService->get_pokemon(
-            TrainerDTO::fromRequestValidated($request),$id
-        )->original;
+        $trainerStatus = $this->trainerService->get_pokemon($id)->original;
 
         if (!$trainerStatus) {
             return response(['message' => 'Not found'], 404);
         }
 
         $trainerStatus->load('capture_pokemon');
-        return response()->json(TrainerResource::make($trainerStatus)->toArray($request), Response::HTTP_CREATED);
+        return response()->json(TrainerResource::make($trainerStatus), Response::HTTP_CREATED);
     }
 
-    public function trainer_remove_pokemon(TrainerRequestValidantion $request, $id): JsonResponse
+    public function trainer_remove_pokemon($id): JsonResponse
     {
-        $this->trainerService->remove_pokemon(
-            TrainerDTO::fromRequestValidated($request),$id
-        );
+        $this->trainerService->remove_pokemon($id);
 
         return response()->json([],Response::HTTP_NO_CONTENT);
     }
