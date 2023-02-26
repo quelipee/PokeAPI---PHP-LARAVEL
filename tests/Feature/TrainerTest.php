@@ -14,7 +14,7 @@ class TrainerTest extends TestCase
     public function test_trainer_can_capture_pokemon()
     {
         //prepare
-        $model = User::find(4);
+        $model = User::find(1);
         Session::start();
         $pokemon = Pokemon::find(random_int(3,20));
         //act

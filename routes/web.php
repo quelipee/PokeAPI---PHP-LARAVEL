@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('PokeAPI');
-});
+})->name('PokeAPI');
 
 Route::middleware(['guest'])->group(function ()
 {
@@ -44,10 +44,11 @@ Route::middleware(['guest'])->group(function ()
 Route::middleware(['auth'])->group(function ()
 {
     Route::get('index',[PokeController::class,'index'])->name('index');
+
     Route::post('get_pokemon/{id}',[TrainerController::class,'trainer_get_pokemon'])->name('get_pokemon');
     Route::post('remove_pokemon/{id}',[TrainerController::class,'trainer_remove_pokemon'])->name('remove_pokemon');
     Route::get('logout',[UserController::class,'logout'])->name('logout');
 });
 
-
+Route::get('pokemons',[PokeController::class,'pokemons'])->name('pokemons');
 

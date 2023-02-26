@@ -25,7 +25,7 @@ class PokeAPI
      * */
     public function getPokeAPI()
     {
-        $this->pokeAPI = json_decode($this->client->get('https://pokeapi.co/api/v2/pokemon?limit=20')->getBody());
+        $this->pokeAPI = json_decode($this->client->get('https://pokeapi.co/api/v2/pokemon?limit=1279')->getBody());
         return response()->json($this->pokeAPI,Response::HTTP_OK);
     }
 
@@ -73,7 +73,7 @@ class PokeAPI
     public function getImg(mixed $data): mixed
     {
         if ($data->sprites->front_default == null) {
-            return 'vazio';
+            return 'https://www.humanusjr.com.br/static/media/semImagem.6e07875b.png';
         }
         return $data->sprites->front_default;
     }

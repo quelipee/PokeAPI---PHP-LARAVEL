@@ -30,7 +30,7 @@ class UserController extends Controller
             $this->userService->authenticate(
                 UserDTO::fromRequestValidated($request)
             );
-            return \response()->redirectTo(route('',[UserResource::make($trainer)]),Response::HTTP_CREATED);//TODO
+            return response()->redirectTo(route('index',[UserResource::make($trainer)]),Response::HTTP_CREATED);//TODO
         }
         return response()->json($trainer, Response::HTTP_NOT_FOUND);
     }
@@ -41,7 +41,7 @@ class UserController extends Controller
             UserDTO::fromRequestLoginValidated($request)
         );
 
-        return response()->json(redirect(route('login')),Response::HTTP_CREATED);
+        return redirect(route('index'));
     }
     public function logout()
     {
@@ -49,7 +49,7 @@ class UserController extends Controller
         if (!Auth::user())
         {
             //TODO adjusts more latter
-            return response()->json([],Response::HTTP_OK);
+            return redirect(route('PokeAPI'));
         }
         try {
             throw new Exception('Error');

@@ -42,4 +42,10 @@ class TrainerService
         $user->load('trainer')->toArray();
         return $user->trainer->id;
     }
+
+    public function userGetTrainer()
+    {
+        $userId = User::find(Auth::id());
+        return Trainer::find($userId);
+    }
 }
