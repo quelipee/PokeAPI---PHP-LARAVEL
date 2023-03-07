@@ -23,7 +23,6 @@ class TrainerRequestValidantion extends FormRequest
     public function rules():array
     {
         return [
-            /*'id' => 'nullable',*/
             'name' => 'required|string|max:100',
             'region' => 'required|string|max:100',
             'age' => 'required|integer|max_digits:3'

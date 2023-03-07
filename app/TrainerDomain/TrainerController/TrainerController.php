@@ -47,7 +47,20 @@ class TrainerController extends Controller
     {
         $new_trainer = $this->trainerService->edit(TrainerDTO::fromRequestValidated($request));
 
-        return response()->redirectToRoute('index',[TrainerResource::make($new_trainer)],Response::HTTP_CREATED);
+        return response()->redirectToRoute('profile',[TrainerResource::make($new_trainer)],Response::HTTP_CREATED);
     }
 
+    public function edit_view()
+    {
+        $trainer = $this->trainerService->userGetTrainer();
+
+        return \response()->view('auth/edit',['trainer' => $trainer])->setStatusCode(Response::HTTP_OK);
+    }
+
+    public function profile()
+    {
+        $trainer = $this->trainerService->userGetTrainer();
+
+        return \response()->view('auth/profile',['trainer' => $trainer])->setStatusCode(Response::HTTP_OK);
+    }
 }

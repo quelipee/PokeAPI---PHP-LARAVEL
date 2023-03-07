@@ -49,6 +49,8 @@ Route::middleware(['auth'])->group(function ()
     Route::post('get_pokemon/{id}',[TrainerController::class,'trainer_get_pokemon'])->name('get_pokemon');
     Route::post('remove_pokemon/{id}',[TrainerController::class,'trainer_remove_pokemon'])->name('remove_pokemon');
     Route::get('logout',[UserController::class,'logout'])->name('logout');
+
+    Route::post('profile_update',[TrainerController::class,'trainer_edit'])->name('profile_update');
 });
 
 Route::middleware(['auth'])->group(function (){
@@ -57,6 +59,10 @@ Route::middleware(['auth'])->group(function (){
         $pokemon = $id;
         return response()->view('auth/pokemon',['pokemon' =>$pokemon])->setStatusCode(Response::HTTP_CREATED);
     })->name('view_get_pokemon');
+
+    Route::get('profile',[TrainerController::class,'profile'])->name('profile');
+    Route::get('profile_edit',[TrainerController::class,'edit_view'])->name('view_edit');
+
 })->name('auth_view');
 
 Route::get('pokemons',[PokeController::class,'pokemons'])->name('pokemons');

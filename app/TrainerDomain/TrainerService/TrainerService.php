@@ -6,12 +6,13 @@ use App\TrainerDomain\Models\Trainer;
 use App\TrainerDomain\TrainerDTO\TrainerDTO;
 use App\UserDomain\Models\User;
 use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class TrainerService
 {
-    public function get_pokemon($id)
+    public function get_pokemon($id): JsonResponse
     {
         $trainer = $this->userGetTrainer();
         $pokemons = $trainer->capture_pokemon;
@@ -28,7 +29,7 @@ class TrainerService
         return response()->json($trainer,Response::HTTP_CREATED);
     }
 
-    public function remove_pokemon(int $id)
+    public function remove_pokemon(int $id): Trainer
     {
         $trainer = $this->userGetTrainer();
         $trainer->capture_pokemon()->detach($id);
