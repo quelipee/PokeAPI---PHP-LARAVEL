@@ -2,12 +2,22 @@
 
 namespace App\PokeDomain\Repositories\PokeRepository;
 
-use Illuminate\Http\JsonResponse;
+use App\PokeDomain\Models\Pokemon;
+use Exception;
+use Illuminate\Database\Eloquent\Collection;
 
 class PokeRepository
 {
-    public function getAllPokemon():array | JsonResponse
+    /**
+     * @throws Exception
+     */
+    public function getAllPokemon(): Collection
     {
-        //TODO
+        $pokemons = Pokemon::all();
+        if (!$pokemons)
+        {
+            throw new Exception('pokemons not found!!!');
+        }
+        return $pokemons;
     }
 }

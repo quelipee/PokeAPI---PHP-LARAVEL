@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\UserDomain\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Response;
@@ -44,9 +45,9 @@ class PokeTest extends TestCase
     public function test_get_all_pokemons()
     {
         //prepare
-
+        $user = User::first();
         //act
-        $response = $this->get('api/get_all_pokemons');
+        $response = $this->actingAs($user)->get('api/get_all_pokemons');
         //assert
         $response->assertStatus(Response::HTTP_CREATED);
     }

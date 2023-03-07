@@ -5,13 +5,14 @@ namespace App\UserDomain\UserService;
 use App\TrainerDomain\Models\Trainer;
 use App\UserDomain\Models\User;
 use App\UserDomain\UserDTO\UserDTO;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use mysql_xdevapi\Exception;
 
 class UserService
 {
-    public function store(UserDTO $userDTO)
+    public function store(UserDTO $userDTO):Trainer|JsonResponse
     {
         $users = User::all();
         foreach ($users as $user)
@@ -34,7 +35,7 @@ class UserService
             'user_id' => $user->id
         ]);
     }
-    public function authenticate(UserDTO $userDTO)
+    public function authenticate(UserDTO $userDTO): JsonResponse
     {
         $credentials = [
             'email' => $userDTO->email,
@@ -48,10 +49,10 @@ class UserService
         session()->start();
         session()->put('id',Auth::id());
 
-        return response()->json([],Response::HTTP_CREATED);
+        return response()->json([Auth::id()],Response::HTTP_CREATED);
     }
 
-    public function destroySession()
+    public function destroySession(): JsonResponse
     {
         Auth::logout();
         return response()->json([],Response::HTTP_CREATED);

@@ -5,12 +5,14 @@ namespace App\PokeDomain\PokeService;
 use App\PokeDomain\Models\Pokemon;
 use App\PokeDomain\PokeAPI\PokeAPI;
 use App\PokeDomain\PokeDTO\PokeDTO;
+use App\PokeDomain\Repositories\PokeRepository\PokeRepository;
+use Exception;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Http\Response;
 
 class PokeService
 {
-    public function __construct(public readonly PokeAPI $pokeAPI)
+    public function __construct(public readonly PokeAPI $pokeAPI, public PokeRepository $repository)
     {}
 
     /**
@@ -35,9 +37,13 @@ class PokeService
         return response()->json([],Response::HTTP_CREATED);
     }
 
+    /**
+     * @throws Exception
+     */
     public function index()
     {
-        $allPoke = Pokemon::all();
+        $allPoke = $this->repository->getAllPokemon();
+
         $pokemonDTO = [];
 
         foreach ($allPoke as $pokemon)

@@ -24,3 +24,5 @@ Route::get('get_all_pokemons',[\App\PokeDomain\PokeController\PokeController::cl
 
 Route::get('insertBD',[\App\PokeDomain\PokeService\PokeService::class,'storeAllPokemons'])->name('getAllPokemonsw');
 Route::post('create_trainer',[\App\TrainerDomain\TrainerController\TrainerController::class,'store_trainer'])->name('create_trainer');
+
+Route::post('profile_update',[\App\TrainerDomain\TrainerController\TrainerController::class,'trainer_edit'])->name('profile_update');

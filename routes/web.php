@@ -1,8 +1,10 @@
 <?php
 
+use App\PokeDomain\Models\Pokemon;
 use App\PokeDomain\PokeController\PokeController;
 use App\TrainerDomain\TrainerController\TrainerController;
 use App\UserDomain\UserController\UserController;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,11 +46,18 @@ Route::middleware(['guest'])->group(function ()
 Route::middleware(['auth'])->group(function ()
 {
     Route::get('index',[PokeController::class,'index'])->name('index');
-
     Route::post('get_pokemon/{id}',[TrainerController::class,'trainer_get_pokemon'])->name('get_pokemon');
     Route::post('remove_pokemon/{id}',[TrainerController::class,'trainer_remove_pokemon'])->name('remove_pokemon');
     Route::get('logout',[UserController::class,'logout'])->name('logout');
 });
+
+Route::middleware(['auth'])->group(function (){
+    Route::get('get_pokemon/{id}',function (Pokemon $id)
+    {
+        $pokemon = $id;
+        return response()->view('auth/pokemon',['pokemon' =>$pokemon])->setStatusCode(Response::HTTP_CREATED);
+    })->name('view_get_pokemon');
+})->name('auth_view');
 
 Route::get('pokemons',[PokeController::class,'pokemons'])->name('pokemons');
 

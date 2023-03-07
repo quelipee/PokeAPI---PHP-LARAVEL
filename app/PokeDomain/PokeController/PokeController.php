@@ -9,6 +9,7 @@ use App\PokeDomain\Resources\PokeResource;
 use App\TrainerDomain\Models\Trainer;
 use App\TrainerDomain\TrainerService\TrainerService;
 use App\UserDomain\Models\User;
+use Exception;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,15 +19,17 @@ class PokeController extends Controller
     {
     }
 
+    /**
+     * @throws Exception
+     */
     public function index()
     {
         //isRandomOrder -> embaralha os dados dentro da model
         $array_poke = $this->pokeService->index();
         $trainer = $this->trainerService->userGetTrainer();
 
-
         return response()->view('auth/index',['pokemons' => PokeResource::collection($array_poke),
-            'trainer' => $trainer[0]])
+            'trainer' => $trainer])
             ->setStatusCode(Response::HTTP_CREATED);
     }
 

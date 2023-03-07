@@ -43,7 +43,7 @@
 
                 <a href="#" class="hover:text-base text-sm font-semibold leading-6 text-gray-900">Marketplace</a>
 
-                <a href="#" class="hover:text-base text-sm font-semibold leading-6 text-gray-900">Company</a>
+                <a href="#" class="hover:text-base text-sm font-semibold leading-6 text-gray-900">Perfil</a>
             </div>
 
             @if(Auth::user())

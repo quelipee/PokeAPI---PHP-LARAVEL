@@ -7,10 +7,13 @@ use App\UserDomain\Requests\UserLoginRequest;
 use App\UserDomain\Requests\UserRequest;
 use App\UserDomain\Resources\UserResource;
 use App\UserDomain\UserDTO\UserDTO;
-use App\UserDomain\UserDTO\UserLoginDTO;
 use App\UserDomain\UserService\UserService;
 use Exception;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
@@ -19,7 +22,7 @@ class UserController extends Controller
     {
     }
 
-    public function register(UserRequest $request)
+    public function register(UserRequest $request): JsonResponse|RedirectResponse
     {
         $trainer = $this->userService->store(
             UserDTO::fromRequestValidated($request)
@@ -35,21 +38,20 @@ class UserController extends Controller
         return response()->json($trainer, Response::HTTP_NOT_FOUND);
     }
 
-    public function login(UserLoginRequest $request)
+    public function login(UserLoginRequest $request): Redirector|Application|RedirectResponse
     {
         $this->userService->authenticate(
             UserDTO::fromRequestLoginValidated($request)
         );
 
-        return redirect(route('index'));
+        return redirect(route('index'))->setStatusCode(Response::HTTP_CREATED);
     }
-    public function logout()
+    public function logout(): JsonResponse|Redirector|RedirectResponse|Application
     {
         $this->userService->destroySession();
         if (!Auth::user())
         {
-            //TODO adjusts more latter
-            return redirect(route('PokeAPI'));
+            return redirect(route('PokeAPI'),Response::HTTP_FOUND);
         }
         try {
             throw new Exception('Error');

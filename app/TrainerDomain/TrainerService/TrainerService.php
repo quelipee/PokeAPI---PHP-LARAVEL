@@ -3,7 +3,9 @@
 namespace App\TrainerDomain\TrainerService;
 
 use App\TrainerDomain\Models\Trainer;
+use App\TrainerDomain\TrainerDTO\TrainerDTO;
 use App\UserDomain\Models\User;
+use Exception;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
@@ -11,8 +13,7 @@ class TrainerService
 {
     public function get_pokemon($id)
     {
-        $trainer_id = $this->userGetID();
-        $trainer = Trainer::find($trainer_id);
+        $trainer = $this->userGetTrainer();
         $pokemons = $trainer->capture_pokemon;
 
         foreach ($pokemons as $pokemon)
@@ -29,23 +30,34 @@ class TrainerService
 
     public function remove_pokemon(int $id)
     {
-        $trainer_id = $this->userGetID();
-        $trainer = Trainer::find($trainer_id);
+        $trainer = $this->userGetTrainer();
         $trainer->capture_pokemon()->detach($id);
 
         return $trainer->load('capture_pokemon');
     }
 
-    public function userGetID()
+    public function userGetTrainer():Trainer
     {
-        $user = User::find(Auth::id());
-        $user->load('trainer')->toArray();
-        return $user->trainer->id;
+        return Trainer::find(Auth::id());
     }
 
-    public function userGetTrainer()
+    /**
+     * @throws Exception
+     */
+    public function edit(TrainerDTO $trainerDTO): Trainer
     {
-        $userId = User::find(Auth::id());
-        return Trainer::find($userId);
+        $trainer = $this->userGetTrainer();
+
+        if (!$trainer)
+        {
+            throw new Exception('Error: trainer not found');
+        }
+        $trainer->fill([
+            'name' => $trainerDTO->name,
+            'region' => $trainerDTO->region,
+            'age' => $trainerDTO->age,
+        ])->save();
+
+        return $trainer;
     }
 }

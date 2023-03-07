@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\UserDomain\Models\User;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Session;
 use Tests\TestCase;
 
 class UserTest extends TestCase
@@ -15,7 +16,7 @@ class UserTest extends TestCase
         $payload = [
             'email' => 'joaos@gmail.com',
             'password' => 123,
-            'name' => 'joaao',
+            'name' => 'joaos',
             'region' => 'galar',
             'age' => 25,
         ];
@@ -45,10 +46,10 @@ class UserTest extends TestCase
     public function test_user_can_logout()
     {
         //prepare
-        $model = User::find(2);
+        $model = User::first();
         //act
         $response = $this->actingAs($model)->get('logout');
         //assert
-        $response->assertStatus(Response::HTTP_OK);
+        $response->assertStatus(Response::HTTP_FOUND);
     }
 }

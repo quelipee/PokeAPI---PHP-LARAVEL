@@ -3,7 +3,7 @@
     {{--    {{dd($pokemons)}}--}}
     <div>
         <div class="container mx-auto px-4 flex items-center justify-center">
-            <div class="bg-gray-100 shadow-xl border rounded-md mt-20 p-10">
+            <div class="bg-gray-100 shadow-xl border rounded-md mt-16 p-10">
                 <div class="grid grid-cols-8 gap-10">
                     @foreach($pokemons as $pokemon)
                         @if($pokemon->name == 'pikachu')
@@ -17,7 +17,7 @@
                                 </label>
                             </div>
                         @else
-                            <a href="#">
+                            <a href="{{route('view_get_pokemon',$pokemon->id)}}">
                                 <div class="w-48 h-48 bg-gray-200 border rounded-md hover:bg-gray-400 shadow-xl">
                                     <div class="flex items-center justify-center h-32 p-5">
                                         <p>{{$pokemon->id}}</p>
