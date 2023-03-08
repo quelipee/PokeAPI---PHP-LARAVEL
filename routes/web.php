@@ -3,6 +3,7 @@
 use App\Http\Middleware\CaughtAllPokemons;
 use App\Http\Middleware\GetPokemon;
 use App\Http\Middleware\LookMyPokemon;
+use App\Http\Middleware\RepeatedPokemonCatch;
 use App\PokeDomain\Models\Pokemon;
 use App\PokeDomain\PokeController\PokeController;
 use App\TrainerDomain\TrainerController\TrainerController;
@@ -64,7 +65,7 @@ Route::middleware(['auth'])->group(function (){
     {
         $pokemon = $id;
         return response()->view('auth/pokemon',['pokemon' =>$pokemon])->setStatusCode(Response::HTTP_CREATED);
-    })->name('view_get_pokemon');
+    })->name('view_get_pokemon')->middleware(RepeatedPokemonCatch::class);
 
     Route::get('profile',[TrainerController::class,'profile'])->name('profile');
     Route::get('profile_edit',[TrainerController::class,'edit_view'])->name('view_edit');
