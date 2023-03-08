@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\CaughtAllPokemons;
 use App\Http\Middleware\GetPokemon;
+use App\Http\Middleware\LookMyPokemon;
 use App\PokeDomain\Models\Pokemon;
 use App\PokeDomain\PokeController\PokeController;
 use App\TrainerDomain\TrainerController\TrainerController;
@@ -54,7 +55,8 @@ Route::middleware(['auth'])->group(function ()
     Route::get('logout',[UserController::class,'logout'])->name('logout');
 
     Route::post('profile_update',[TrainerController::class,'trainer_edit'])->name('profile_update');
-    Route::get('pokemon/{pokemon:id}',[TrainerController::class,'show_pokemon'])->name('show_pokemon');
+    Route::get('pokemon/{pokemon:id}',[TrainerController::class,'show_pokemon'])->name('show_pokemon')
+    ->middleware(LookMyPokemon::class);
 });
 
 Route::middleware(['auth'])->group(function (){

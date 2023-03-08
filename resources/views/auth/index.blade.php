@@ -43,3 +43,8 @@
     </div>
 @endsection
 
+@if ($errors->any())
+    <script>
+        alert("{{ $errors->first('error') }}");
+    </script>
+@endif
