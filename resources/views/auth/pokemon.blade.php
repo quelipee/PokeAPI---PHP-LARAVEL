@@ -1,33 +1,34 @@
 @extends('layouts.default')
+@section('title','captura')
 @section('content')
     <div>
-        <form action="{{route('get_pokemon', $pokemon->id)}}" method="post">
-            @csrf
-            @method('post')
-        <div class="container mx-auto px-4 max-w-5xl flex items-center justify-center">
-
-                <div class="mt-36 grid grid-rows-4 flex items-center justify-center shadow-xl bg-gray-200 w-1/2 p-10 rounded border border-xl">
-                    <div class="bg-gray-300 rounded border border-xl shadow-xl">
-                        <img src="{{$pokemon->img_url}}" alt="">
+            <div class="max-w-md mx-auto mt-44">
+                <div class="rounded-md shadow-md overflow-hidden">
+                    <div class="flex justify-center p-5">
+                        <img src="{{$pokemon->img_url}}" class="w-32 h-32">
                     </div>
+                    <div class="p-5">
+                        <form action="{{route('get_pokemon', $pokemon->id)}}" method="POST">
+                            @csrf
+                            @method('post')
+                            <div class="mb-4">
+                                <label for="answer" class="block text-gray-700 font-bold mb-2">Qual o nome deste Pokemon?</label>
+                                <input id="answer" name="name" type="text" autocomplete="off" required class="appearance-none rounded-none
+                                relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md
+                                focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Resposta" required>
+                                @error('pokemon_name')
+                                <p class="text-sm text-gray-600">{{ $message }}</p>
+                                @enderror
+                            </div>
 
-                    <div class="text-center bg-gray-300 shadow-xl border border-xl rounded">
-                        <h2 class="font-bold text-gray-600">NOME</h2>
-                        <h3>{{$pokemon->name}}</h3>
-                    </div>
+                            <div class="flex items-center justify-center">
+                                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Capturar</button>
+                            </div>
 
-                    <div class="text-center bg-gray-300 shadow-xl border border-xl rounded">
-                        <h2 class="font-bold text-gray-600">TIPO</h2>
-                        <h3>{{$pokemon->attribute}}</h3>
-                    </div>
-
-                    <div>
-                        <button type="submit" class="hover:bg-blue-400 bg-blue-500 rounded border shadow-xl border-md text-white px-5 py-1 font-semibold"
-                        >Capturar</button>
+                        </form>
                     </div>
                 </div>
+            </div>
 
-        </div>
-        </form>
     </div>
 @endsection

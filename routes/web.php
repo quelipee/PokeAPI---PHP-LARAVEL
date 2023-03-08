@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Middleware\CaughtAllPokemons;
+use App\Http\Middleware\GetPokemon;
 use App\PokeDomain\Models\Pokemon;
 use App\PokeDomain\PokeController\PokeController;
 use App\TrainerDomain\TrainerController\TrainerController;
@@ -46,11 +48,13 @@ Route::middleware(['guest'])->group(function ()
 Route::middleware(['auth'])->group(function ()
 {
     Route::get('index',[PokeController::class,'index'])->name('index');
-    Route::post('get_pokemon/{id}',[TrainerController::class,'trainer_get_pokemon'])->name('get_pokemon');
+    Route::post('get_pokemon/{id}',[TrainerController::class,'trainer_get_pokemon'])->name('get_pokemon')
+    ->middleware(GetPokemon::class);
     Route::post('remove_pokemon/{id}',[TrainerController::class,'trainer_remove_pokemon'])->name('remove_pokemon');
     Route::get('logout',[UserController::class,'logout'])->name('logout');
 
     Route::post('profile_update',[TrainerController::class,'trainer_edit'])->name('profile_update');
+    Route::get('pokemon/{pokemon:id}',[TrainerController::class,'show_pokemon'])->name('show_pokemon');
 });
 
 Route::middleware(['auth'])->group(function (){

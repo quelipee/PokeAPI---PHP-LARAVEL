@@ -17,8 +17,9 @@ class TrainerTest extends TestCase
         $model = User::first();
         Session::start();
         $pokemon = Pokemon::find(random_int(3,20));
+        $name = ['name' => $pokemon->name];
         //act
-        $response = $this->actingAs($model)->post('get_pokemon/' . $pokemon->id);
+        $response = $this->actingAs($model)->post('get_pokemon/' . $pokemon->id, $name);
         //assert
         $response->assertStatus(Response::HTTP_CREATED);
     }
@@ -40,10 +41,10 @@ class TrainerTest extends TestCase
         //prepare
         $trainer = User::first();
         $pokemon = Pokemon::find(117);
-//        dd($pokemon);
+        $name = ['name' => $pokemon->name];
         Session::start();
         //act
-        $response = $this->actingAs($trainer)->post('get_pokemon/' . $pokemon->id);
+        $response = $this->actingAs($trainer)->post('get_pokemon/' . $pokemon->id,$name);
         //assert
         $response->assertStatus(Response::HTTP_NOT_FOUND);
     }

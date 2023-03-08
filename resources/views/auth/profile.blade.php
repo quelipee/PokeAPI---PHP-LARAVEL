@@ -22,10 +22,14 @@
                         <p class="text-lg font-medium text-gray-900">Idade:</p>
                         <p class="text-gray-500 mt-2">{{$trainer->age}}</p>
                     </div>
+                    <div>
+                        <p class="text-lg font-medium text-gray-900">E-mail:</p>
+                        <p class="text-gray-500 mt-2">{{$user->email}}</p>
+                    </div>
                 </div>
                 <div class="mt-6 flex justify-center">
                     <a href="{{route('view_edit')}}" class="font-medium text-indigo-600 hover:text-indigo-500">
-                        Edit Profile
+                        Editar Perfil
                     </a>
                 </div>
             </div>

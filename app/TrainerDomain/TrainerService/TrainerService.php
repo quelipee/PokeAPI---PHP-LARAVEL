@@ -59,6 +59,11 @@ class TrainerService
             'age' => $trainerDTO->age,
         ])->save();
 
+//        $user = User::find(Auth::id());
+//        $user->fill([
+//            'email' => $trainerDTO->email
+//        ])->save();
+
         return $trainer;
     }
 }

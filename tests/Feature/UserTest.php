@@ -14,9 +14,9 @@ class UserTest extends TestCase
     {
         //prepare
         $payload = [
-            'email' => 'joaos@gmail.com',
+            'email' => 'maria@gmail.com',
             'password' => 123,
-            'name' => 'joaos',
+            'name' => 'maria',
             'region' => 'galar',
             'age' => 25,
         ];
@@ -33,7 +33,7 @@ class UserTest extends TestCase
     {
         //preapre
         $payload = [
-            'email' => 'fe@gmail.com',
+            'email' => 'maria@gmail.com',
             'password' => 123
         ];
         //act

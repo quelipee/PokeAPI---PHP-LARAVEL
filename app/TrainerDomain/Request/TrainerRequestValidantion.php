@@ -25,7 +25,7 @@ class TrainerRequestValidantion extends FormRequest
         return [
             'name' => 'required|string|max:100',
             'region' => 'required|string|max:100',
-            'age' => 'required|integer|max_digits:3'
+            'age' => 'required|integer|max_digits:3',
         ];
     }
 }

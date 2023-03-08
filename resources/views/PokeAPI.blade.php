@@ -1,4 +1,5 @@
 @extends('layouts.default')
+
 @section('content')
     <main>
         <div class="relative px-6 lg:px-8">

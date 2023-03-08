@@ -3,12 +3,14 @@
 namespace App\TrainerDomain\TrainerController;
 
 use App\Http\Controllers\Controller;
-use App\PokeDomain\Requests\PokeRequest;
-use App\TrainerDomain\Models\Trainer;
+use App\PokeDomain\Models\Pokemon;
+use App\PokeDomain\PokeAPI\PokeStatusAPI;
+use App\TrainerDomain\Request\TrainerRequestUpdate;
 use App\TrainerDomain\Request\TrainerRequestValidantion;
 use App\TrainerDomain\Resources\TrainerResource;
 use App\TrainerDomain\TrainerDTO\TrainerDTO;
 use App\TrainerDomain\TrainerService\TrainerService;
+use App\UserDomain\Models\User;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
@@ -19,7 +21,8 @@ use Illuminate\Support\Facades\Auth;
 
 class TrainerController extends Controller
 {
-    public function __construct(protected TrainerService $trainerService)
+    public function __construct(protected TrainerService $trainerService,
+                                protected PokeStatusAPI $pokeStatusAPI)
     {}
     public function trainer_get_pokemon($id): Response|RedirectResponse|Application|ResponseFactory
     {
@@ -50,17 +53,23 @@ class TrainerController extends Controller
         return response()->redirectToRoute('profile',[TrainerResource::make($new_trainer)],Response::HTTP_CREATED);
     }
 
-    public function edit_view()
+    public function edit_view(): Response
     {
         $trainer = $this->trainerService->userGetTrainer();
-
-        return \response()->view('auth/edit',['trainer' => $trainer])->setStatusCode(Response::HTTP_OK);
+        $user = User::find(Auth::id());
+        return \response()->view('auth/edit',['trainer' => $trainer,'user' => $user])->setStatusCode(Response::HTTP_OK);
     }
 
-    public function profile()
+    public function profile(): Response
     {
         $trainer = $this->trainerService->userGetTrainer();
+        $user = User::find(Auth::id());
+        return \response()->view('auth/profile',['trainer' => $trainer, 'user' => $user])->setStatusCode(Response::HTTP_OK);
+    }
 
-        return \response()->view('auth/profile',['trainer' => $trainer])->setStatusCode(Response::HTTP_OK);
+    public function show_pokemon(Pokemon $pokemon): Response | Pokemon
+    {
+        $pokeStatus = $this->pokeStatusAPI->getStatus($pokemon->statusAPI);
+        return response()->view('auth/showPokemon',[ 'pokemon' => $pokeStatus ])->setStatusCode(Response::HTTP_CREATED);
     }
 }

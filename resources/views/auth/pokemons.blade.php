@@ -20,11 +20,10 @@
                             <a href="{{route('view_get_pokemon',$pokemon->id)}}">
                                 <div class="w-48 h-48 bg-gray-200 border rounded-md hover:bg-gray-400 shadow-xl">
                                     <div class="flex items-center justify-center h-32 p-5">
-                                        <p>{{$pokemon->id}}</p>
                                         <img class="w-full h-full object-contain" src="{{$pokemon->img_url}}" alt="">
                                     </div>
                                     <label class="text-center">
-                                        <p class="text-center font-semibold text-gray-600">{{$pokemon->name}}</p>
+                                        <p class="text-center font-semibold text-gray-600">???????</p>
                                     </label>
                                 </div>
                             </a>
