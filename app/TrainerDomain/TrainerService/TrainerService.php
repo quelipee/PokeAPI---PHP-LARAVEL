@@ -37,8 +37,12 @@ class TrainerService
         return $trainer->load('capture_pokemon');
     }
 
-    public function userGetTrainer():Trainer
+    public function userGetTrainer(): ?Trainer
     {
+        if (!Trainer::find(Auth::id()))
+        {
+            return null;
+        }
         return Trainer::find(Auth::id());
     }
 

@@ -1,4 +1,5 @@
 @extends('layouts.default')
+@section('title','Editar Perfil')
 @section('content')
     <!-- Edit User Page -->
     <div class="flex flex-col justify-center items-center min-h-full mt-44 bg-gray-100 py-12 px-4 sm:px-6 lg:px-8 mt-20 ">

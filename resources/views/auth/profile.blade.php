@@ -1,4 +1,5 @@
 @extends('layouts.default')
+@section('title','Perfil')
 @section('content')
     <!-- User Profile Page -->
     <div class="flex flex-col justify-center items-center mt-44 bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
