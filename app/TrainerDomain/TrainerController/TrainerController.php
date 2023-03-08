@@ -32,6 +32,10 @@ class TrainerController extends Controller
             return response(['message' => 'Not found'], 404);
         }
 
+        $message = 'Congratulations! You caught this pokemon!!!';
+        session()->flash('pokemon', $message);
+        session()->put('alertShown', true);
+
         $trainerStatus->load('capture_pokemon');
         return response()->redirectToRoute('index')->setStatusCode(Response::HTTP_CREATED);
     }

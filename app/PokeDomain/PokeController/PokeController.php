@@ -46,8 +46,9 @@ class PokeController extends Controller
         $array_poke = $this->pokeService->index();
         shuffle($array_poke);
         $array_poke = array_slice($array_poke,0,24);
+        $trainer = $this->trainerService->userGetTrainer();
 
-        return response()->view('auth/pokemons',['pokemons' => PokeResource::collection($array_poke)])
+        return response()->view('auth/pokemons',['pokemons' => PokeResource::collection($array_poke), 'trainer' => $trainer])
             ->setStatusCode(Response::HTTP_CREATED);
     }
 }
