@@ -23,6 +23,7 @@ class RepeatedPokemonCatch
         $trainer = Trainer::find(Auth::id());
         $pokeId = $request->segment(2);
         $poke = Pokemon::find($pokeId);
+        $pokemons = [];
 
         foreach ($trainer->capture_pokemon as $poke_trainer)
         {

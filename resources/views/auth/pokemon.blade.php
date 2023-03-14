@@ -11,15 +11,28 @@
                         <form action="{{route('get_pokemon', $pokemon->id)}}" method="POST">
                             @csrf
                             @method('post')
-                            <div class="mb-4">
-                                <label for="answer" class="block text-gray-700 font-bold mb-2">Qual o nome deste Pokemon?</label>
-                                <input id="answer" name="name" type="text" autocomplete="off" required class="appearance-none rounded-none
+
+                            @if($pokemon->img_url != 'https://www.humanusjr.com.br/static/media/semImagem.6e07875b.png')
+                                <div class="mb-4">
+                                    <label for="answer" class="block text-gray-700 font-bold mb-2">Qual o nome deste Pokemon?</label>
+                                    <input id="answer" name="name" type="text" autocomplete="off" class="appearance-none rounded-none
                                 relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md
                                 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Resposta" required>
-                                @error('pokemon_name')
-                                <p class="text-sm text-gray-600">{{ $message }}</p>
-                                @enderror
-                            </div>
+                                    @error('pokemon_name')
+                                    <p class="text-sm text-gray-600">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                            @else
+                                <div class="mb-4">
+                                    <label for="answer" class="block text-gray-700 font-bold mb-2">Qual é o tipo do {{str_replace('-', ' ', $pokemon->name)}}?</label>
+                                    <input id="answer" name="type" type="text" autocomplete="off" class="appearance-none rounded-none
+                                relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md
+                                focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Resposta" required>
+                                    @error('pokemon_name')
+                                    <p class="text-sm text-gray-600">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                            @endif
 
                             <div class="flex items-center justify-center">
                                 <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Capturar</button>

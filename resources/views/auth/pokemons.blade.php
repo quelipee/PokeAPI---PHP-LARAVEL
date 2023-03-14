@@ -17,7 +17,7 @@
                                                 <img class="w-full h-full object-contain" src="{{$pokemon->img_url}}" alt="">
                                             </div>
                                             <label class="text-center">
-                                                <p class="text-center font-semibold text-gray-600">{{($pokemon->name)}} (OBTIDO)</p>
+                                                <p class="text-sm text-center font-semibold text-gray-600">{{($pokemon->name)}} (OBTIDO)</p>
                                             </label>
                                         </div>
                                     @endif

@@ -21,10 +21,16 @@ class GetPokemon
     {
         $poke = $this->getPoke($request);
 
-        if (strtolower($request->name) != $this->getPokename($poke))
+        if (strtolower($request->name) != $this->getPokename($poke) and $request->name != null)
         {
             return redirect()->back()->withErrors(['pokemon_name' => 'Oops, o nome do pokemon na imagem é diferente do que você digitou.']);
         }
+
+        if (strtolower($request->type) != $poke->attribute and $request->type != null)
+        {
+            return redirect()->back()->withErrors(['pokemon_name' => 'Oops, o nome do pokemon na imagem é diferente do que você digitou.']);
+        }
+
         return $next($request);
     }
 
