@@ -17,32 +17,27 @@
             <div class="bg-gray-100 shadow-xl border rounded-md mt-20 p-10">
 
                 <div class="grid grid-cols-8 gap-10">
-                    @foreach($pokemons as $pokemon)
-                        @foreach($trainer->capture_pokemon as $trainerPoke)
-                            @if($pokemon->name == $trainerPoke->name)
-
-                                <a href="{{route('show_pokemon',$pokemon->id)}}">
-                                    <div class="w-44 h-52 border rounded-md bg-blue-300 shadow-xl p-5 hover:bg-blue-400">
-                                        <div class="flex items-center justify-center h-32">
-                                            <p class="text-gray-600">{{$pokemon->id}}</p>
-                                            <img class="w-full h-full object-contain" src="{{$pokemon->img_url}}" alt="">
-                                        </div>
-                                        <label class="text-center">
-                                            <p class="text-center font-semibold text-white">{{str_replace('-', ' ', $pokemon->name)}}</p>
-                                        </label>
-                                    </div>
-                                </a>
-
-                            @endif
-                        @endforeach
+                    @foreach($trainer->capture_pokemon as $trainer_poke)
+                        <a href="{{route('show_pokemon',$trainer_poke->id)}}">
+                            <div class="w-44 h-52 border rounded-md bg-blue-300 shadow-xl p-5 hover:bg-blue-400">
+                                <div class="flex items-center justify-center h-32">
+                                    <p class="text-gray-600">{{$trainer_poke->id}}</p>
+                                    <img class="w-full h-full object-contain" src="{{$trainer_poke->img_url}}" alt="">
+                                </div>
+                                <label class="text-center">
+                                    <p class="text-center font-semibold text-white">{{str_replace('-', ' ', $trainer_poke->name)}}</p>
+                                </label>
+                            </div>
+                        </a>
                     @endforeach
+
                 </div>
 
             </div>
         </div>
     </div>
 @endsection
-
+{{--este if mostra os erros para que o usuario nao possa capturar o mesmo pokemon ou ver o perfil de um pokemon que ele nao obteve --}}
 @if ($errors->any())
     <script>
         alert("{{ $errors->first('error') }}");

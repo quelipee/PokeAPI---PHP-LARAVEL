@@ -28,7 +28,7 @@ class GetPokemon
 
         if (strtolower($request->type) != $poke->attribute and $request->type != null)
         {
-            return redirect()->back()->withErrors(['pokemon_name' => 'Oops, o nome do pokemon na imagem é diferente do que você digitou.']);
+            return redirect()->back()->withErrors(['pokemon_name' => 'Oops, o tipo do pokemon é diferente do que você digitou.']);
         }
 
         return $next($request);

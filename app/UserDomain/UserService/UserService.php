@@ -44,6 +44,7 @@ class UserService
 
         if (!Auth::attempt($credentials))
         {
+            //TODO adjusts in error login
             throw new Exception('Error');
         }
         session()->start();
